@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-
+import 'package:firstproj/drawerSide.dart' as drawerSide;
 class DynamicList extends StatefulWidget {
   const DynamicList({ Key? key }) : super(key: key);
 
@@ -98,6 +98,7 @@ class _DynamicListState extends State<DynamicList> {
         },
       )
       ),
+      drawer: drawerSide.DrawerSide(),
       // body: ListView.builder(
       //   itemCount: stdInfo.length,
       //   itemBuilder: (context, index){
