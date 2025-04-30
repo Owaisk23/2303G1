@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 class DarazScreen extends StatefulWidget {
-  const DarazScreen({ Key? key }) : super(key: key);
+  const DarazScreen({Key? key}) : super(key: key);
 
   @override
   _DarazScreenState createState() => _DarazScreenState();
@@ -19,7 +19,7 @@ class _DarazScreenState extends State<DarazScreen> {
       ),
       body: Column(
         children: [
-          SizedBox(height: 5,),
+          SizedBox(height: 5),
           Container(
             decoration: BoxDecoration(
               image: DecorationImage(
@@ -27,9 +27,57 @@ class _DarazScreenState extends State<DarazScreen> {
                 fit: BoxFit.cover,
               ),
             ),
-              height:120,
-              width: double.infinity,
-          )
+            height: 120,
+            width: double.infinity,
+          ),
+          SizedBox(height: 5),
+          Row(
+            children: [
+              Container(
+                decoration: BoxDecoration(
+                  image: DecorationImage(
+                    image: AssetImage('circle1.jpg'),
+                    fit: BoxFit.cover,
+                  ),
+                ),
+                height: 70,
+                width: 70,
+              ),
+              SizedBox(width: 5),
+              Container(
+                decoration: BoxDecoration(
+                  image: DecorationImage(
+                    image: AssetImage('circle2.jpg'),
+                    fit: BoxFit.cover,
+                  ),
+                ),
+                height: 70,
+                width: 70,
+              ),
+              SizedBox(width: 5),
+              Container(
+                decoration: BoxDecoration(
+                  image: DecorationImage(
+                    image: AssetImage('circle3.jpg'),
+                    fit: BoxFit.cover,
+                  ),
+                ),
+                height: 70,
+                width: 70,
+              ),
+              SizedBox(width: 5),
+              Container(
+                decoration: BoxDecoration(
+                  image: DecorationImage(
+                    image: AssetImage('circle4.jpg'),
+                    fit: BoxFit.cover,
+                  ),
+                ),
+                height: 70,
+                width: 70,
+              ),
+            ],
+          ),
         ],
       ),
     );
