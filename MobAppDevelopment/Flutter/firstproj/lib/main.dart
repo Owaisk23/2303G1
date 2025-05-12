@@ -1,5 +1,6 @@
 import 'package:device_preview/device_preview.dart';
 import 'package:firstproj/ApiProduct.dart';
+import 'package:firstproj/SongApp.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
@@ -19,7 +20,7 @@ class MyApp extends StatelessWidget {
       builder: DevicePreview.appBuilder,
       theme: ThemeData.light(),
       darkTheme: ThemeData.dark(),
-      home:  ApiProduct(),
+      home:  SongApp(),
       debugShowCheckedModeBanner: false,
     );
   }

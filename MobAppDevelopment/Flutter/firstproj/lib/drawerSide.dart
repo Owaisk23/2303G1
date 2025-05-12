@@ -1,4 +1,5 @@
 import 'package:firstproj/ApiProduct.dart';
+import 'package:firstproj/SongApp.dart';
 import 'package:firstproj/darazScreen.dart';
 import 'package:firstproj/dynamicList.dart';
 import 'package:firstproj/firstScreen.dart';
@@ -49,6 +50,13 @@ class _DrawerSideState extends State<DrawerSide> {
             title: Text('Laptops'),
             onTap: () {
               Navigator.push(context, MaterialPageRoute(builder:  (context) => DynamicList()));
+            },
+          ),
+          ListTile(
+            leading: Icon(Icons.laptop),
+            title: Text('Song App'),
+            onTap: () {
+              Navigator.push(context, MaterialPageRoute(builder:  (context) => SongApp()));
             },
           ),
           ListTile(
