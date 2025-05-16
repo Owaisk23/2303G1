@@ -1,4 +1,5 @@
 import 'package:firstproj/ApiProduct.dart';
+import 'package:firstproj/BillCalculator.dart';
 import 'package:firstproj/SongApp.dart';
 import 'package:firstproj/darazScreen.dart';
 import 'package:firstproj/dynamicList.dart';
@@ -50,6 +51,13 @@ class _DrawerSideState extends State<DrawerSide> {
             title: Text('Laptops'),
             onTap: () {
               Navigator.push(context, MaterialPageRoute(builder:  (context) => DynamicList()));
+            },
+          ),
+          ListTile(
+            leading: Icon(Icons.laptop),
+            title: Text('Bill Calculator'),
+            onTap: () {
+              Navigator.push(context, MaterialPageRoute(builder:  (context) => BillCalculator()));
             },
           ),
           ListTile(
