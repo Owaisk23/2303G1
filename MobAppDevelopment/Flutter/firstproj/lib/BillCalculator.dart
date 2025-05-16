@@ -1,3 +1,4 @@
+import 'package:firstproj/Result.dart';
 import 'package:flutter/material.dart';
 import 'package:firstproj/drawerSide.dart' as drawerSide;
 
@@ -35,6 +36,18 @@ class _BillCalculatorState extends State<BillCalculator> {
       setState(() {
         finalBillAmount = billAmount + taxAmount;
       });
+
+      // Navigate to Result page
+      billDetails = {
+        'units': units,
+        'pricePerUnit': pricePerUnit,
+        'taxPercent': taxPercent,
+        'billAmount': billAmount,
+        'taxAmount': taxAmount,
+        'finalBillAmount': finalBillAmount
+      };
+    Navigator.push(context,MaterialPageRoute(builder: (context)=>Result(billDetails)));
+
       print("Final Bill Amount: $finalBillAmount");
     }
     else {
@@ -137,12 +150,12 @@ class _BillCalculatorState extends State<BillCalculator> {
                     ),
                   ),
 
-                  SizedBox(
-                    height: 60,
-                  ),
-                  Text(finalBillAmount != 0
-                      ? "Final Bill Amount:$finalBillAmount"
-                      : "Enter values to get your bill")
+                  // SizedBox(
+                  //   height: 60,
+                  // ),
+                  // Text(finalBillAmount != 0
+                  //     ? "Final Bill Amount:$finalBillAmount"
+                  //     : "Enter values to get your bill")
                 ],
               )
               ),
