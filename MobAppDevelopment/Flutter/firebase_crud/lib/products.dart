@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_crud/productDetailScreen.dart';
 import 'package:flutter/material.dart';
 
 class Products extends StatefulWidget {
@@ -79,7 +80,7 @@ class _ProductsState extends State<Products> {
                               'price': productList[index]['price'],
                               'image': productList[index]['image'],
                             };
-                            // Navigator.push(context, MaterialPageRoute(builder: (context)=>ProductDetailScreen(productDetails)));
+                            Navigator.push(context, MaterialPageRoute(builder: (context)=>ProductDetailScreen(productDetails)));
                           },
                           icon: Icon(Icons.info),
                         ),

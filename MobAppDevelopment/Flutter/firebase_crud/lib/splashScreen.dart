@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:firebase_crud/products.dart';
 import 'package:flutter/material.dart';
 
 class SplashScreen extends StatefulWidget {
@@ -13,7 +14,9 @@ class _SplashScreenState extends State<SplashScreen> {
 void initState() {
     super.initState();
     Timer(Duration(seconds: 3), () {
-      Navigator.pushReplacementNamed(context, "/products");
+      // Navigator.pushReplacementNamed(context, "/products");
+      // Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=>Products()));
+      Navigator.pushNamed(context, "/products");
     });
   }    
   @override
