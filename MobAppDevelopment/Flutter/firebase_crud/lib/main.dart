@@ -3,6 +3,7 @@ import 'package:firebase_crud/addproduct.dart';
 // import 'package:firebase_crud/addproduct.dart';
 import 'package:firebase_crud/firebase_options.dart';
 import 'package:firebase_crud/products.dart';
+import 'package:firebase_crud/signup.dart';
 import 'package:firebase_crud/splashScreen.dart';
 import 'package:flutter/material.dart';
 
@@ -18,6 +19,7 @@ void main()async {
       routes: {
         "/products": (context) => Products(),
         "/add": (context) => Addproduct(),
+        "/signup": (context) => Signup(),
       },
     ),
   );

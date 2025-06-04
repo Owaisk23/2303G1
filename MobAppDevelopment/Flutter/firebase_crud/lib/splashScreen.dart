@@ -16,7 +16,7 @@ void initState() {
     Timer(Duration(seconds: 3), () {
       // Navigator.pushReplacementNamed(context, "/products");
       // Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=>Products()));
-      Navigator.pushNamed(context, "/products");
+      Navigator.pushNamed(context, "/signup");
     });
   }    
   @override
