@@ -38,7 +38,7 @@ class MyApp extends StatelessWidget {
       home: SplashScreen(),
       routes: {
         "/signup":(context)=> Signup(),
-        "/products":(context)=>  (isLoggedIn) ? Products(): Login(),
+        "/products":(context)=>  Products(),
         "/add":(context)=> (isLoggedIn && isAdmin) ? Addproduct(): Login(),
         "/login":(context)=>Login(),
       },
