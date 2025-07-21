@@ -23,3 +23,9 @@ db.products.find({ $or: [ { price: { $lt: 560 } }, { brand: { $ne: "Ronin" } }] 
 
 //and 
 db.products.find({ $and: [ { price: { $lt: 560 } }, { brand: { $ne: "Ronin" } }] })
+
+db.employees.aggregate( [{ $lookup: { from: "departments", localField: "deptId", foreignField: "_id", as: "department" } }]);
+
+ db.employees.insertMany([{name:"Haris Naseer",salary:50000, deptId:ObjectId('687e5ab6685f36c0c994c220')} ,{name:"Owais Ahmed",salary:50000, deptId:ObjectId('687e5ab6685f36c0c994c221')}])
+
+ db.departments.insertMany([{deptName:"Academics",head:"Sir Hassan",aim:"To excel the academics"},{deptName:"Accounts",head:"Sir Mehmood",aim:"To ensure the flow of funds with accuracy and smoothness"},])
