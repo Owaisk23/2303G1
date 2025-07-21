@@ -142,8 +142,9 @@ class Products extends StatefulWidget {
 }
 
 class _ProductsState extends State<Products> {
-  final CollectionReference products =
-      FirebaseFirestore.instance.collection('products');
+  final CollectionReference products = FirebaseFirestore.instance.collection(
+    'products',
+  );
   final TextEditingController searchController = TextEditingController();
 
   bool isSearching = false;
@@ -153,17 +154,21 @@ class _ProductsState extends State<Products> {
   void deleteProduct(String id) async {
     try {
       await products.doc(id).delete();
-      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-        content: Text("Product deleted"),
-        duration: Duration(seconds: 2),
-        backgroundColor: Colors.red,
-      ));
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(
+          content: Text("Product deleted"),
+          duration: Duration(seconds: 2),
+          backgroundColor: Colors.red,
+        ),
+      );
     } catch (e) {
-      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-        content: Text(e.toString()),
-        duration: const Duration(seconds: 2),
-        backgroundColor: Colors.red,
-      ));
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text(e.toString()),
+          duration: const Duration(seconds: 2),
+          backgroundColor: Colors.red,
+        ),
+      );
     }
   }
 
@@ -172,19 +177,24 @@ class _ProductsState extends State<Products> {
     showDialog(
       context: context,
       builder: (context) {
-        TextEditingController titleController =
-            TextEditingController(text: productDetails['title']);
-        TextEditingController desController =
-            TextEditingController(text: productDetails['description']);
-        TextEditingController priceController =
-            TextEditingController(text: productDetails['price'].toString());
+        TextEditingController titleController = TextEditingController(
+          text: productDetails['title'],
+        );
+        TextEditingController desController = TextEditingController(
+          text: productDetails['description'],
+        );
+        TextEditingController priceController = TextEditingController(
+          text: productDetails['price'].toString(),
+        );
 
         String imgUrl = productDetails['image'];
 
         final ImagePicker picker = ImagePicker();
 
         getImage() async {
-          final XFile? image = await picker.pickImage(source: ImageSource.gallery);
+          final XFile? image = await picker.pickImage(
+            source: ImageSource.gallery,
+          );
           if (image != null) {
             final Uint8List byteImage = await image.readAsBytes();
             final String base64img = base64Encode(byteImage);
@@ -245,29 +255,36 @@ class _ProductsState extends State<Products> {
               onPressed: () {
                 try {
                   double price = double.parse(priceController.text);
-                  products.doc(productDetails['id']).update({
-                    'title': titleController.text,
-                    'description': desController.text,
-                    'price': price,
-                    'image': imgUrl,
-                  }).then((value) {
-                    titleController.clear();
-                    desController.clear();
-                    priceController.clear();
-                    ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-                      content: Text(
-                        "Product updated successfully ✔",
-                        style: TextStyle(color: Colors.white),
-                      ),
-                      backgroundColor: Colors.purple,
-                    ));
-                    Navigator.pop(context);
-                  });
+                  products
+                      .doc(productDetails['id'])
+                      .update({
+                        'title': titleController.text,
+                        'description': desController.text,
+                        'price': price,
+                        'image': imgUrl,
+                      })
+                      .then((value) {
+                        titleController.clear();
+                        desController.clear();
+                        priceController.clear();
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          const SnackBar(
+                            content: Text(
+                              "Product updated successfully ✔",
+                              style: TextStyle(color: Colors.white),
+                            ),
+                            backgroundColor: Colors.purple,
+                          ),
+                        );
+                        Navigator.pop(context);
+                      });
                 } catch (e) {
-                  ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-                    content: Text("Invalid price entered"),
-                    backgroundColor: Colors.red,
-                  ));
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    SnackBar(
+                      content: Text("Invalid price entered"),
+                      backgroundColor: Colors.red,
+                    ),
+                  );
                 }
               },
               child: const Text("Update"),
@@ -282,20 +299,23 @@ class _ProductsState extends State<Products> {
   void searchProducts() async {
     String query = searchController.text.trim().toLowerCase();
     if (query.isEmpty) {
-      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-        content: Text("Please enter a search query"),
-        duration: Duration(seconds: 2),
-        backgroundColor: Colors.red,
-      ));
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(
+          content: Text("Please enter a search query"),
+          duration: Duration(seconds: 2),
+          backgroundColor: Colors.red,
+        ),
+      );
       return;
     }
 
-    var result = await products
-        .where('title', isGreaterThanOrEqualTo: query)
-        .where('title', isLessThanOrEqualTo: query + '\uf8ff')
-        //apply multiple fields search
-        // .limit(3)
-        .get();
+    var result =
+        await products
+            .where('title', isGreaterThanOrEqualTo: query)
+            .where('title', isLessThanOrEqualTo: query + '\uf8ff')
+            //apply multiple fields search
+            // .limit(3)
+            .get();
 
     setState(() {
       isSearching = true;
@@ -303,11 +323,13 @@ class _ProductsState extends State<Products> {
     });
 
     if (result.docs.isEmpty) {
-      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-        content: Text("No products found"),
-        duration: Duration(seconds: 2),
-        backgroundColor: Colors.red,
-      ));
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(
+          content: Text("No products found"),
+          duration: Duration(seconds: 2),
+          backgroundColor: Colors.red,
+        ),
+      );
     }
   }
 
@@ -334,9 +356,10 @@ class _ProductsState extends State<Products> {
       subtitle: Text(product['description']),
       leading: CircleAvatar(
         backgroundColor: Colors.transparent,
-        child: product['image'] != null && product['image'].toString().isNotEmpty
-            ? Image.memory(base64Decode(product['image']), height: 40)
-            : const Icon(Icons.image_not_supported),
+        child:
+            product['image'] != null && product['image'].toString().isNotEmpty
+                ? Image.memory(base64Decode(product['image']), height: 40)
+                : const Icon(Icons.image_not_supported),
       ),
       trailing: Row(
         mainAxisSize: MainAxisSize.min,
@@ -401,7 +424,9 @@ class _ProductsState extends State<Products> {
                 if (isSearching)
                   ElevatedButton(
                     onPressed: clearSearch,
-                    style: ElevatedButton.styleFrom(backgroundColor: Colors.grey),
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: Colors.grey,
+                    ),
                     child: const Text("Clear"),
                   ),
               ],
@@ -410,43 +435,51 @@ class _ProductsState extends State<Products> {
 
             // Products list (search results or full list)
             Expanded(
-              child: isSearching
-                  ? searchResults.isNotEmpty
-                      ? ListView.builder(
-                          itemCount: searchResults.length,
-                          itemBuilder: (context, index) {
-                            return buildProductTile(searchResults[index]);
-                          },
-                        )
-                      : const Center(child: Text("No products found"))
-                  : StreamBuilder<QuerySnapshot>(
-                      stream: products.snapshots(),
-                      builder: (context, snapshot) {
-                        if (snapshot.connectionState == ConnectionState.waiting) {
-                          return const Center(child: CircularProgressIndicator());
-                        }
-                        if (snapshot.hasError) {
-                          return Center(child: Text('Error: ${snapshot.error}'));
-                        }
-                        if (!snapshot.hasData || snapshot.data!.docs.isEmpty) {
-                          return const Center(child: Text('No products available.'));
-                        }
+              child:
+                  isSearching
+                      ? searchResults.isNotEmpty
+                          ? ListView.builder(
+                            itemCount: searchResults.length,
+                            itemBuilder: (context, index) {
+                              return buildProductTile(searchResults[index]);
+                            },
+                          )
+                          : const Center(child: Text("No products found"))
+                      : StreamBuilder<QuerySnapshot>(
+                        stream: products.snapshots(),
+                        builder: (context, snapshot) {
+                          if (snapshot.connectionState ==
+                              ConnectionState.waiting) {
+                            return const Center(
+                              child: CircularProgressIndicator(),
+                            );
+                          }
+                          if (snapshot.hasError) {
+                            return Center(
+                              child: Text('Error: ${snapshot.error}'),
+                            );
+                          }
+                          if (!snapshot.hasData ||
+                              snapshot.data!.docs.isEmpty) {
+                            return const Center(
+                              child: Text('No products available.'),
+                            );
+                          }
 
-                        var productList = snapshot.data!.docs;
+                          var productList = snapshot.data!.docs;
 
-                        return ListView.builder(
-                          itemCount: productList.length,
-                          itemBuilder: (context, index
-) {
-return buildProductTile(productList[index]);
-},
-);
-},
-),
-),
-],
-),
-),
-);
-}
+                          return ListView.builder(
+                            itemCount: productList.length,
+                            itemBuilder: (context, index) {
+                              return buildProductTile(productList[index]);
+                            },
+                          );
+                        },
+                      ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
 }
