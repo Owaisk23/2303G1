@@ -1,9 +1,10 @@
 import React from 'react'
 
-const MyName = () => {
+const MyName = (props) => {
   return (
     <>
-      <h1>My name is Owais Ahmed Khan</h1>
+      <h1>User name is {props.name}</h1>
+      <h1>User age is {props.age}</h1>
     </>
   )
 }
