@@ -2,6 +2,8 @@ import Cards from "./components/Cards";
 import MyName from "./components/MyName";
 import Navbar from "./components/Navbar";
 import ShirtImg from "./assets/shirt.jpg"
+import { useState } from "react";
+import Todo from "./components/Todo";
 
 
 function App() {
@@ -47,16 +49,27 @@ function App() {
       description: "This is a random img description"
     },
   ]
+  console.log("App Component")
+  // let count = 0;
+  const [count, setCount] = useState(0);
+  const [user, setUser] = useState({name: "Owais", age: 24, profession: "Software Developer"});
 
-  let count = 0;
 
-  function handleIncerementCount(){
-    count++;
+  // function handleIncerementCount(){
+  //   // count++;
+  //   setCount(count + 1);
+  //   console.log(count);
+  // }
 
+  const handleIncerementCount = () => {
+    // count++;
+    setCount(count + 1);
     console.log(count);
   }
 
-
+  const updateUser = () => {
+    setUser({...user, name: "Owais Ahmed Khan"})
+  }
 
   return (
     <>
@@ -91,9 +104,19 @@ function App() {
 
        {/* USESTATE */}
 
-       <h1>{count}</h1>
+       {/* <h1>{count}</h1> */}
 
-       <button onClick={handleIncerementCount}>Increment</button>
+       {/* <button className="btn btn-primary" onClick={() => {setCount(count + 1)}}>Increment({count})</button> */}
+       {/* <button className="btn btn-primary" onClick={handleIncerementCount}>Increment({count})</button> */}
+
+       {/* <h2>User Name: {user.name} User Age: {user.age}</h2>
+
+       <button className="btn btn-warning" onClick={updateUser}>Update User</button> */}
+
+       <Todo/>
+
+
+
 
       </div>
     </>
@@ -101,3 +124,13 @@ function App() {
 }
 
 export default App;
+
+
+//useState is a React hook that allow functional components to have local state. It enables components to store & update values overtime without requiring class components.
+
+
+//How useState Works
+//useState(initialValue) returns an array with two values
+//State variable (e.g count)
+//setter function to update the state (e.g setCount)
+//The setter function rerenders the component when the state changes.
