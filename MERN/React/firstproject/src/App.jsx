@@ -4,6 +4,7 @@ import Navbar from "./components/Navbar";
 import ShirtImg from "./assets/shirt.jpg"
 import { useState } from "react";
 import Todo from "./components/Todo";
+import ApiFetch from "./components/ApiFetch";
 
 
 function App() {
@@ -113,9 +114,9 @@ function App() {
 
        <button className="btn btn-warning" onClick={updateUser}>Update User</button> */}
 
-       <Todo/>
+       {/* <Todo/> */}
 
-
+       <ApiFetch />
 
 
       </div>
