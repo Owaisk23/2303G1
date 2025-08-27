@@ -1,60 +1,86 @@
 import Cards from "./components/Cards";
 import MyName from "./components/MyName";
 import Navbar from "./components/Navbar";
-import ShirtImg from "./assets/shirt.jpg"
+import ShirtImg from "./assets/shirt.jpg";
 import { useState } from "react";
 import Todo from "./components/Todo";
 import ApiFetch from "./components/ApiFetch";
-
+import axios from "axios";
+import { useEffect } from "react";
+import Footer from "./components/Footer";
 
 function App() {
   let userData = [
     {
       name: "Owais",
-      age: 23
+      age: 23,
     },
     {
       name: "Adeel",
-      age: 17
+      age: 17,
     },
     {
       name: "Tayyaba",
-      age: 34
+      age: 34,
     },
     {
       name: "Laiba",
-      age: 12
+      age: 12,
     },
   ];
 
-
   let cardData = [
     {
-      image: "https://fastly.picsum.photos/id/133/200/300.jpg?hmac=eJnFxvIwHgkkHHPb2ppK_QqUG4mmom1XpVG0MLQcdTE",
+      image:
+        "https://fastly.picsum.photos/id/133/200/300.jpg?hmac=eJnFxvIwHgkkHHPb2ppK_QqUG4mmom1XpVG0MLQcdTE",
       title: "Random Image",
-      description: "This is a random img description"
+      description: "This is a random img description",
     },
     {
-      image: "https://fastly.picsum.photos/id/51/200/301.jpg?hmac=5gwglF78bvfclNI3TOIFKKDc6ag6bvbz44R8r5veXDc",
+      image:
+        "https://fastly.picsum.photos/id/51/200/300.jpg?hmac=5gwglF78bvfclNI3TOIFKKDc6ag6bvbz44R8r5veXDc",
       title: "Car Image",
-      description: "This is a random img description"
+      description: "This is a random img description",
     },
     {
-      image: "https://fastly.picsum.photos/id/628/200/302.jpg?hmac=VzC_f96MYFyqk3X7QF4wdFuTrhZEIPEw4ATWVcOIqRk",
+      image:
+        "https://fastly.picsum.photos/id/628/200/304.jpg?hmac=VzC_f96MYFyqk3X7QF4wdFuTrhZEIPEw4ATWVcOIqRk",
       title: "Juice Image",
-      description: "This is a random img description"
+      description: "This is a random img description",
     },
     {
-      image: "https://fastly.picsum.photos/id/431/200/304.jpg?hmac=gIcmEH2eY9G8u2YKE1oieHLVS9oPPMccM7KykLQM8q0",
+      image:
+        "https://fastly.picsum.photos/id/431/200/304.jpg?hmac=gIcmEH2eY9G8u2YKE1oieHLVS9oPPMccM7KykLQM8q0",
       title: "Tea Image",
-      description: "This is a random img description"
+      description: "This is a random img description",
     },
-  ]
-  console.log("App Component")
+  ];
+  console.log("App Component");
   // let count = 0;
   const [count, setCount] = useState(0);
-  const [user, setUser] = useState({name: "Owais", age: 24, profession: "Software Developer"});
+  const [user, setUser] = useState({
+    name: "Owais",
+    age: 24,
+    profession: "Software Developer",
+  });
 
+  //useEffects
+  useEffect(() => {
+    console.log("Component rendered");
+    getProducts();
+  }, []);
+  //useEffects end
+
+  //functions
+  const getProducts = async () => {
+    try {
+      const response = await axios.get("https://dummyjson.com/products");
+      const data = await response.data;
+      console.log(data);
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   // function handleIncerementCount(){
   //   // count++;
@@ -66,11 +92,11 @@ function App() {
     // count++;
     setCount(count + 1);
     console.log(count);
-  }
+  };
 
   const updateUser = () => {
-    setUser({...user, name: "Owais Ahmed Khan"})
-  }
+    setUser({ ...user, name: "Owais Ahmed Khan" });
+  };
 
   return (
     <>
@@ -92,8 +118,7 @@ function App() {
        */}
         {/* <Cards image={cardData[0].image} title={cardData[0].title} description={cardData[0].description}/> */}
 
-
-       {/* <div className="d-flex justify-content-around mt-3">
+        <div className="d-flex justify-content-around mt-3">
        {
           cardData.map((item, index) => {
           return <Cards key={index} image={item.image} title={item.title} description={item.description} />
@@ -101,24 +126,25 @@ function App() {
         }
        </div>
        
-       <img src={ShirtImg} alt="" width={150} height={200} /> */}
+       {/* <img src={ShirtImg} alt="" width={150} height={200} /> */}
 
-       {/* USESTATE */}
+        {/* USESTATE */}
 
-       {/* <h1>{count}</h1> */}
+        {/* <h1>{count}</h1> */}
 
-       {/* <button className="btn btn-primary" onClick={() => {setCount(count + 1)}}>Increment({count})</button> */}
-       {/* <button className="btn btn-primary" onClick={handleIncerementCount}>Increment({count})</button> */}
+        {/* <button className="btn btn-primary" onClick={() => {setCount(count + 1)}}>Increment({count})</button> */}
+        {/* <button className="btn btn-primary" onClick={handleIncerementCount}>Increment({count})</button> */}
 
-       {/* <h2>User Name: {user.name} User Age: {user.age}</h2>
+        {/* <h2>User Name: {user.name} User Age: {user.age}</h2>
 
        <button className="btn btn-warning" onClick={updateUser}>Update User</button> */}
 
-       {/* <Todo/> */}
+        {/* <Todo/> */}
 
-       <ApiFetch />
+        {/* <ApiFetch /> */}
 
 
+        <Footer/>
       </div>
     </>
   );
@@ -126,9 +152,7 @@ function App() {
 
 export default App;
 
-
 //useState is a React hook that allow functional components to have local state. It enables components to store & update values overtime without requiring class components.
-
 
 //How useState Works
 //useState(initialValue) returns an array with two values
