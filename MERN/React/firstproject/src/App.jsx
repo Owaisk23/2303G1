@@ -9,6 +9,12 @@ import axios from "axios";
 import { useEffect } from "react";
 import Footer from "./components/Footer";
 
+import About from "./components/About";
+import Signup from "./components/Signup";
+import Login from "./components/Login";
+import { Link, Routes, Route } from "react-router";
+import Parent from "./components/Parent";
+
 function App() {
   let userData = [
     {
@@ -29,32 +35,7 @@ function App() {
     },
   ];
 
-  let cardData = [
-    {
-      image:
-        "https://fastly.picsum.photos/id/133/200/300.jpg?hmac=eJnFxvIwHgkkHHPb2ppK_QqUG4mmom1XpVG0MLQcdTE",
-      title: "Random Image",
-      description: "This is a random img description",
-    },
-    {
-      image:
-        "https://fastly.picsum.photos/id/51/200/300.jpg?hmac=5gwglF78bvfclNI3TOIFKKDc6ag6bvbz44R8r5veXDc",
-      title: "Car Image",
-      description: "This is a random img description",
-    },
-    {
-      image:
-        "https://fastly.picsum.photos/id/628/200/304.jpg?hmac=VzC_f96MYFyqk3X7QF4wdFuTrhZEIPEw4ATWVcOIqRk",
-      title: "Juice Image",
-      description: "This is a random img description",
-    },
-    {
-      image:
-        "https://fastly.picsum.photos/id/431/200/304.jpg?hmac=gIcmEH2eY9G8u2YKE1oieHLVS9oPPMccM7KykLQM8q0",
-      title: "Tea Image",
-      description: "This is a random img description",
-    },
-  ];
+  
   console.log("App Component");
   // let count = 0;
   const [count, setCount] = useState(0);
@@ -101,7 +82,65 @@ function App() {
   return (
     <>
       <div className="container-fluid">
-        <Navbar />
+        {/* <Navbar /> */}
+        <nav className="navbar navbar-expand-lg bg-body-tertiary">
+          <div className="container-fluid">
+            <a className="navbar-brand" href="#">
+              Navbar
+            </a>
+            <button
+              className="navbar-toggler"
+              type="button"
+              data-bs-toggle="collapse"
+              data-bs-target="#navbarSupportedContent"
+              aria-controls="navbarSupportedContent"
+              aria-expanded="false"
+              aria-label="Toggle navigation"
+            >
+              <span className="navbar-toggler-icon"></span>
+            </button>
+            <div
+              className="collapse navbar-collapse"
+              id="navbarSupportedContent"
+            >
+              <ul className="navbar-nav me-auto mb-2 mb-lg-0">
+                <li className="nav-item">
+                  <a className="nav-link active" aria-current="page" href="#">
+                    Home
+                  </a>
+                </li>
+                <li className="nav-item">
+                  <Link className="nav-link" to="/about">
+                    About
+                  </Link>
+                </li>
+                <li className="nav-item">
+                  <Link className="nav-link" to="/signup">
+                    Signup
+                  </Link>
+                </li>
+                <li className="nav-item">
+                  <Link className="nav-link" to="/login">
+                    Login
+                  </Link>
+                </li>
+                
+              </ul>
+              <form className="d-flex" role="search">
+                <input
+                  className="form-control me-2"
+                  type="search"
+                  placeholder="Search"
+                  aria-label="Search"
+                />
+                <button className="btn btn-outline-success" type="submit">
+                  Search
+                </button>
+              </form>
+            </div>
+          </div>
+        </nav>
+
         {/* <h1 className="heading">Hello in React Project</h1> */}
         {/* <h1>{userData[1].name}</h1>
         <h1>{userData[3].age}</h1>
@@ -118,15 +157,9 @@ function App() {
        */}
         {/* <Cards image={cardData[0].image} title={cardData[0].title} description={cardData[0].description}/> */}
 
-        <div className="d-flex justify-content-around mt-3">
-       {
-          cardData.map((item, index) => {
-          return <Cards key={index} image={item.image} title={item.title} description={item.description} />
-            })
-        }
-       </div>
-       
-       {/* <img src={ShirtImg} alt="" width={150} height={200} /> */}
+        
+
+        {/* <img src={ShirtImg} alt="" width={150} height={200} /> */}
 
         {/* USESTATE */}
 
@@ -143,8 +176,18 @@ function App() {
 
         {/* <ApiFetch /> */}
 
+        <Footer />
 
-        <Footer/>
+
+
+
+
+        <Routes>
+          <Route path="/" element={<Parent/>}/>
+          <Route path="/about" element={<About/>}/>
+          <Route path="/signup" element={<Signup/>}/>
+          <Route path="/login" element={<Login/>}/>
+        </Routes>
       </div>
     </>
   );
