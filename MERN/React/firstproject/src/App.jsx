@@ -14,6 +14,8 @@ import Signup from "./components/Signup";
 import Login from "./components/Login";
 import { Link, Routes, Route } from "react-router";
 import Parent from "./components/Parent";
+import Bulb from "./components/Bulb";
+import Dashboard from "./components/Dashboard";
 
 function App() {
   let userData = [
@@ -35,7 +37,6 @@ function App() {
     },
   ];
 
-  
   console.log("App Component");
   // let count = 0;
   const [count, setCount] = useState(0);
@@ -44,6 +45,8 @@ function App() {
     age: 24,
     profession: "Software Developer",
   });
+  const [std, setStd] = useState(["Daniyal", "Haider"]);
+  let totalUser = std.length; //derived state
 
   //useEffects
   useEffect(() => {
@@ -76,7 +79,9 @@ function App() {
   };
 
   const updateUser = () => {
-    setUser({ ...user, name: "Owais Ahmed Khan" });
+    setStd([ ...std, "usama"]);
+    console.log(totalUser)
+    // totalUser++
   };
 
   return (
@@ -124,7 +129,6 @@ function App() {
                     Login
                   </Link>
                 </li>
-                
               </ul>
               <form className="d-flex" role="search">
                 <input
@@ -157,8 +161,6 @@ function App() {
        */}
         {/* <Cards image={cardData[0].image} title={cardData[0].title} description={cardData[0].description}/> */}
 
-        
-
         {/* <img src={ShirtImg} alt="" width={150} height={200} /> */}
 
         {/* USESTATE */}
@@ -168,26 +170,45 @@ function App() {
         {/* <button className="btn btn-primary" onClick={() => {setCount(count + 1)}}>Increment({count})</button> */}
         {/* <button className="btn btn-primary" onClick={handleIncerementCount}>Increment({count})</button> */}
 
-        {/* <h2>User Name: {user.name} User Age: {user.age}</h2>
+        <h2>totalUser: {totalUser}</h2>
 
-       <button className="btn btn-warning" onClick={updateUser}>Update User</button> */}
+       <button className="btn btn-warning" onClick={updateUser}>Update User</button>
 
         {/* <Todo/> */}
 
         {/* <ApiFetch /> */}
 
-        <Footer />
-
-
-
-
+        {/* <Bulb/> */}
 
         <Routes>
           <Route path="/" element={<Parent/>}/>
-          <Route path="/about" element={<About/>}/>
-          <Route path="/signup" element={<Signup/>}/>
-          <Route path="/login" element={<Login/>}/>
+          <Route path="/about" element={<About />} />
+          <Route path="/signup" element={<Signup />} />
+          <Route path="/login" element={<Login />} />
+
+          {/* Group Routing & Nested Routing e.g /admin/order */}
+          <Route path="/admin/">
+            <Route path="bulb" element={<Bulb />} />
+            <Route path="dashboard" element={<Dashboard />} />
+            <Route path="products/">
+              <Route path="show" element={<Login />} />
+              <Route path="add" element={<Signup />} />
+            </Route>
+            <Route path="categories/">
+              <Route path="show" element={<MyName />} />
+              <Route path="add" element={<Cards />} />
+            </Route>
+          </Route>
         </Routes>
+
+        {/* Consider you have 4 Roles
+      admin has 4 group routes
+      seller has 2 group routes
+      buyer has 2 group routes i.e 2 buyers
+      employee has 3 group routes i.e 3 employee
+       */}
+
+        <Footer />
       </div>
     </>
   );
