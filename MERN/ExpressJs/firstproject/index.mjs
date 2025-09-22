@@ -2,18 +2,28 @@
 import express from 'express';
 import path from 'path';
 
+import fs from  'node:fs';
+
+
+
+// const data = JSON.parse(fs.readFileSync("data.json","utf-8"));
+const data = JSON.parse(fs.readFileSync("data.json","utf-8"));
+
+let products=data.products;
+
 const app = express()
 const port = 3000
+app.use(express.json()); 
 
 const dirname = path.resolve();
-
 app.get('/', (req, res) => {
   res.send('Hello World!')
 })
 
-app.get('/contact', (req, res) => {
-  res.send('Hello From Contact page')
-})
+
+// app.get('/contact', (req, res) => {
+//   res.send('Hello From Contact page')
+// })
 
 app.get('/image', (req, res) => {
   
@@ -21,6 +31,13 @@ app.get('/image', (req, res) => {
 })
 
 app.use('/home', express.static(dirname, {index: '/static/index.html'}))
+
+// Route Parameters (They are compulsory)
+
+// app.get('/product/:id', (req, res) => {
+// res.json({name:"Product no "+ req.params.id})
+// })
+
 
 app.get('/posts/:id', (req, res) => {
     let postId = req.params.id;
@@ -52,6 +69,105 @@ app.get('/posts/:id', (req, res) => {
     res.send(postObj);
 
 })
+
+
+//Query Parameters (They are optional)
+app.get('/categories', (req, res) => {
+if (req.query.name) {
+
+  res.json({name:"Category :"+req.query.name})
+} else {
+  res.json({name:"All Categories "})
+
+}
+})
+
+
+
+// //Request Body (They are used to send data to server)
+
+app.get('/contact', (req, res) => {
+// const name=req.body.name;
+// const age=req.body.age;
+// const city=req.body.city;
+//Destructuring
+const {name, age, city}=req.body;
+  res.json({name:name, age:age,city:city})
+})
+
+app.get('/products', (req, res) =>{
+
+  try {
+     res.status(200).json({message:"Showing our products",products:products});
+    
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({message:error.message})
+  }
+
+})
+
+//find product by id:
+app.get('/product/:id', (req, res) =>{
+  try {
+let id= req.params.id;
+let product = products.find((prd)=>{
+  return prd.id == id
+})
+if (product) {
+  res.status(200).json({message:"Product found",product:product});
+} else {
+  res.status(404).json({message:"No product found"});
+}
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({message:error.message})
+  }
+})
+
+//add product :
+app.post('/addproduct', (req, res) =>{
+  try {
+    let newProduct= req.body;
+   let addProduct= products.push(newProduct);
+
+console.log(newProduct);
+if (addProduct) {
+  res.status(200).json({message:"Product added",product:newProduct});
+} else {
+  res.status(404).json({message:"No product found"});
+}
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({message:error.message})
+  }
+})
+
+//Delete product
+
+app.delete('/deleteproduct/:id', (req, res) =>{
+  try {
+    let id = req.params.id;
+    let deletedProduct= products.find((prd)=>{
+  return prd.id == id
+})
+let filteredProducts= products.filter((item)=>{item.id != id})
+console.log(deletedProduct);
+products=filteredProducts;
+
+
+if (filteredProducts) {
+  res.status(200).json({message:"Product deleted successfully",product:deletedProduct});
+} else {
+  res.status(404).json({message:"Can't delete right now"});
+}
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({message:error.message})
+  }
+})
+
+
 
 app.listen(port, () => {
   console.log(`Example app listening on port ${port}`)
