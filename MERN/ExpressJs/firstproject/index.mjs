@@ -3,6 +3,10 @@ import express from 'express';
 import path from 'path';
 import productRouter from './routes/productRoutes.mjs';
 import fs from  'node:fs';
+// getting-started.js
+// const mongoose = require('mongoose');
+import mongoose from 'mongoose';
+
 
 
 
@@ -15,6 +19,15 @@ const app = express()
 const port = 3000
 app.use(express.json()); 
 
+
+main().catch(err => console.log(err));
+
+async function main() {
+  await mongoose.connect('mongodb+srv://owaisahmedkhan:owais123@cluster0.mbgw7ps.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0');
+
+  console.log("Database connected successfully")
+  // use `await mongoose.connect('mongodb://user:password@127.0.0.1:27017/test');` if your database has auth enabled
+}
 // const dirname = path.resolve();
 // app.get('/', (req, res) => {
 //   res.send('Hello World!')
