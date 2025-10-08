@@ -6,7 +6,7 @@ import fs from  'node:fs';
 // getting-started.js
 // const mongoose = require('mongoose');
 import mongoose from 'mongoose';
-
+import dotenv from 'dotenv'
 
 
 
@@ -14,6 +14,9 @@ import mongoose from 'mongoose';
 const data = JSON.parse(fs.readFileSync("data.json","utf-8"));
 
 let products=data.products;
+
+
+dotenv.config();
 
 const app = express()
 const port = 3000

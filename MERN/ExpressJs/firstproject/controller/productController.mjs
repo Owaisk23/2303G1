@@ -5,20 +5,20 @@ import Product from '../models/productModel.mjs';
 // const data = JSON.parse(fs.readFileSync("data.json", "utf-8"));
 // const products = data.products;
 
-let index =async(req, res) => {
-   try {
-    const products=await Product.find();
+let index = async (req, res) => {
+  try {
+    const products = await Product.find();
 
-  if (products.length > 0) {
-       res.status(200).json({message:"Showing our products",products:products});
+    if (products.length > 0) {
+      res.status(200).json({ message: "Showing our products", products: products });
     } else {
-      res.status(404).json({message:"Showing our products",products:"No products found"});
-    
-  }
-    
+      res.status(404).json({ message: "Showing our products", products: "No products found" });
+
+    }
+
   } catch (error) {
     console.log(error);
-    res.status(500).json({message:error.message})
+    res.status(500).json({ message: error.message })
   }
 }
 
@@ -54,7 +54,7 @@ let create = async (req, res) => {
       images
     } = req.body;
 
-   
+
     const product = new Product({
       title,
       description,
@@ -72,7 +72,7 @@ let create = async (req, res) => {
     const addProd = await product.save();
     // mongodb method to save data to database
     // let addProd = await Product.insertOne(product);
-    
+
     res.status(201).json({
       message: "Product created successfully",
       product: addProd
@@ -89,12 +89,47 @@ let create = async (req, res) => {
   }
 };
 
+let addProductWithImage = async (req, res) => {
+  try {
+    console.log(req.file)
+    console.log(req.file.path);
+    let newProduct = new Product({
+      title: req.body.title,
+      description: req.body.description,
+      price: req.body.price,
+      discountPercentage: req.body.discountPercentage,
+      rating: req.body.rating,
+      stock: req.body.stock,
+      brand: req.body.brand,
+      category: req.body.category,
+      thumbnail: req.file.path,
+      images: req.file.path
+
+    });
+
+    let addprod = await Product.insertOne(newProduct);
+    if (!addprod) {
+      res.status(404).json({ message: "Failed to add product" });
+    } else {
+
+      res.status(200).json({
+        message: "Product added successfully",
+        product: addprod,
+      })
+    }
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({ message: "Internal server errror" });
+  }
+}
+
 
 
 const productController = {
   index,
   singleProduct,
-  create
+  create,
+  addProductWithImage
 }
 
 
