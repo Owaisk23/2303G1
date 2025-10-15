@@ -187,6 +187,7 @@ async function main() {
 // })
 
 app.use("/product",productRouter)
+app.use("/user",userRouter)
 
 
 app.listen(port, () => {
