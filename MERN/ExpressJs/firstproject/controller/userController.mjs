@@ -1,5 +1,4 @@
-
-import User from '../models/userModel.mjs';
+import User from '../models/userModel.mjs'
 import  bcrypt  from "bcrypt"
 
 // fetch all products

@@ -7,7 +7,7 @@ import fs from  'node:fs';
 // const mongoose = require('mongoose');
 import mongoose from 'mongoose';
 import dotenv from 'dotenv'
-
+import userRouter from './routes/userRouter.mjs';
 
 
 // const data = JSON.parse(fs.readFileSync("data.json","utf-8"));

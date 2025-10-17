@@ -1,5 +1,5 @@
 import express from 'express'
-import userController from '../controllers/userController.mjs';
+import userController from '../controller/userController.mjs';
 
 const userRouter= express.Router();
 
@@ -11,5 +11,6 @@ userRouter
 
 //post requests
 .post("/signup",userController.Signup)
+
 
 export default userRouter;
