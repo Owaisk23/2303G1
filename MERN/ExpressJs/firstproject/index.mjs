@@ -8,6 +8,8 @@ import fs from  'node:fs';
 import mongoose from 'mongoose';
 import dotenv from 'dotenv'
 import userRouter from './routes/userRouter.mjs';
+import cors from 'cors';
+
 
 
 // const data = JSON.parse(fs.readFileSync("data.json","utf-8"));
@@ -22,7 +24,7 @@ const app = express()
 const port = 3000
 app.use(express.json()); 
 
-
+app.use(cors());
 main().catch(err => console.log(err));
 
 async function main() {
@@ -186,7 +188,7 @@ async function main() {
 //   }
 // })
 
-app.use("/product",productRouter)
+app.use("/products",productRouter)
 app.use("/user",userRouter)
 
 
