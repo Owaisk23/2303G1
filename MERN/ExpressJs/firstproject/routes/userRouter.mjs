@@ -12,7 +12,7 @@ userRouter
 //post requests
 .post("/signup",userController.Signup)
 .post("/login",userController.Login)
-.post("/sendmail",userController.sendEmail)
+.post("/sendmail",usersendEmail)
 
 
 export default userRouter;

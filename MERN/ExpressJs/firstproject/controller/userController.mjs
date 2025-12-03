@@ -39,6 +39,7 @@ let Signup =async (req, res) => {
         password:hashPassword,
         }
       )
+      //mongoose method to save product in db
       let adduser =await newUser.save();
       if (adduser) {
         res.status(200).json({message:"Registration is sucessfull.",user:adduser});

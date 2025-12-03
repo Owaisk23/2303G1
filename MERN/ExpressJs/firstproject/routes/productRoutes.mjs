@@ -12,7 +12,7 @@ productRouter
 .get("/:id",productController.singleProduct)
 .post("/",productController.create)
 .post("/addproduct", userController.auth,upload.single("image"),productController.addProductWithImage)
-
+//      "Route Name", Middleware1,        Middleware2             , controller function
 
 
 export default productRouter;
